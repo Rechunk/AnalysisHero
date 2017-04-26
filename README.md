@@ -1,8 +1,5 @@
-# App
+# AnalysisHero
 
-A new flutter project.
+A mobile application for calculating details about a function
 
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](http://flutter.io/).
+## Project is being developed using Flutter
