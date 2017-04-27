@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "calculateRoots.dart";
 
 void main() {
   runApp(new MyApp());
@@ -66,6 +67,8 @@ class InputWidgetState extends State<InputWidget> {
       ersteAbleitung = simplifyFunction(ersteAbleitung);
       zweiteAbleitung = simplifyFunction(zweiteAbleitung);
       dritteAbleitung = simplifyFunction(dritteAbleitung);
+
+      List<int> list = calculateRoots(function);
     });
   }
 
@@ -73,7 +76,7 @@ class InputWidgetState extends State<InputWidget> {
     String newFunction = "";
     function = function.replaceAll(" ", "");
     function = function.replaceAll("x^0", "");
-
+    print("The function is $function");
     List<String> elements = isolateSummandsByOperators(function);
 
     RegExp factorRegex = new RegExp(r"-?[0-9]*x");

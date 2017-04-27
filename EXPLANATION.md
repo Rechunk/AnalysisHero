@@ -2,7 +2,7 @@
 
 ## 1. Calculating the derivation
 
-Here is a visual example on how the derivation is calculated:
+Here is an example on how the derivation is calculated:
 
 ## 1. Function: 3x^2 + 5x
 ## 2. List:    [3x^2, +, 5x]
