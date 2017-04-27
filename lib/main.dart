@@ -136,7 +136,7 @@ class InputWidgetState extends State<InputWidget> {
   List<String> isolateSummandsByOperators(String function){
     List<String> splitList = [];
 
-    RegExp exp = new RegExp(r"(?:-?[0-9]x[\^*/]\s*[\-+]|[^\-+])+|[\-+]");
+    RegExp exp = new RegExp(r"(?:-?[0-9]*x[\^*/]\s*[\-+]|[^\-+])+|[\-+]");
     Iterable<Match> matches = exp.allMatches(function);
     matches.forEach((m)=>splitList.add(function.substring(m.start, m.end)));
 
@@ -161,9 +161,10 @@ class InputWidgetState extends State<InputWidget> {
             icon: new Icon(Icons.check),
             onPressed: _submitted,
           ),
-          new Text("1. Ableitung: $ersteAbleitung"),
-          new Text("2. Ableitung: $zweiteAbleitung"),
-          new Text("3. Ableitung: $dritteAbleitung"),
+          new Text("Ableitungen: "),
+          new Text(ersteAbleitung),
+          new Text(zweiteAbleitung),
+          new Text(dritteAbleitung),
         ]
 
     );
