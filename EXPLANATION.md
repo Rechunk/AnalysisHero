@@ -4,7 +4,7 @@
 
 Here is a visual example on how the derivation is calculated:
 
-Function: 3x^2 + 5x
-List:    [3x^2, +, 5x]
-RegEx:   ([3 = factor, x is there, 2 = exponent], +, [x is there, 5 = factor])
-1. Rule: ([factor * exponent, exponent - 1], +, [remove x])
+######1. Function: 3x^2 + 5x
+######2. List:    [3x^2, +, 5x]
+######3. RegEx:   ([3 = factor, x is there, 2 = exponent], +, [x is there, 5 = factor])
+######4. Rule no.1: ([factor * exponent, exponent - 1], +, [remove x])
