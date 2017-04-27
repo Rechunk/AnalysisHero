@@ -55,6 +55,7 @@ class InputWidgetState extends State<InputWidget> {
   String ersteAbleitung = "";
   String zweiteAbleitung = "";
   String dritteAbleitung = "";
+  String roots = "";
   String function = "";
 
   void _submitted(){
@@ -68,7 +69,9 @@ class InputWidgetState extends State<InputWidget> {
       zweiteAbleitung = simplifyFunction(zweiteAbleitung);
       dritteAbleitung = simplifyFunction(dritteAbleitung);
 
-      List<int> list = calculateRoots(function);
+      List<int> calculatedRoots = calculateRoots(function);
+
+      roots = calculatedRoots.toString();
     });
   }
 
@@ -76,7 +79,6 @@ class InputWidgetState extends State<InputWidget> {
     String newFunction = "";
     function = function.replaceAll(" ", "");
     function = function.replaceAll("x^0", "");
-    print("The function is $function");
     List<String> elements = isolateSummandsByOperators(function);
 
     RegExp factorRegex = new RegExp(r"-?[0-9]*x");
@@ -143,7 +145,6 @@ class InputWidgetState extends State<InputWidget> {
     Iterable<Match> matches = exp.allMatches(function);
     matches.forEach((m)=>splitList.add(function.substring(m.start, m.end)));
 
-    print(splitList);
     return splitList;
   }
 
@@ -164,10 +165,30 @@ class InputWidgetState extends State<InputWidget> {
             icon: new Icon(Icons.check),
             onPressed: _submitted,
           ),
-          new Text("Ableitungen: "),
-          new Text(ersteAbleitung),
-          new Text(zweiteAbleitung),
-          new Text(dritteAbleitung),
+          new Container(
+            width: 500.0,
+            padding: new EdgeInsets.all(20.0),
+            color: Colors.green,
+            child: new Column(
+              children: [
+                new Text("Ableitungen: "),
+                new Text(ersteAbleitung),
+                new Text(zweiteAbleitung),
+                new Text(dritteAbleitung),
+              ]
+            )
+          ),
+          new Container(
+            width: 500.0,
+            padding: new EdgeInsets.all(20.0),
+            color: Colors.red,
+            child: new Column(
+              children: [
+                new Text("Nullstellen: "),
+                new Text(roots),
+              ]
+            )
+          ),
         ]
 
     );

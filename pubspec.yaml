@@ -2,6 +2,7 @@ name: AnalysisHero
 description: A new flutter project.
 
 dependencies:
+  math_expressions: "^0.3.0"
   flutter:
     sdk: flutter
 
