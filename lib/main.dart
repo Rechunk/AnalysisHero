@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import "calculateDerivations.dart";
 import "calculateRoots.dart";
+
+String ersteAbleitung = "";
+String zweiteAbleitung = "";
+String dritteAbleitung = "";
+InputValue val = new InputValue(text: "");
+String function = "";
+List<int> roots = [];
 
 void main() {
   runApp(new MyApp());
@@ -29,17 +37,46 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  bool navigateToOptions = false;
+  List<Widget> widgetsToAdd = [new InputWidget()];
+
   @override
   Widget build(BuildContext context) {
 
+    List<Widget> children = widgetsToAdd;
+
     return new Scaffold(
       appBar: new AppBar(title: new Text(config.title)),
-      body: new Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          new InputWidget(),
-        ]
+      body: new ListView(
+        children: children
       ),
+      floatingActionButton: new FloatingActionButton(
+          child: new Icon(Icons.add),
+          onPressed: () {
+            setState(() {
+
+              function = val.text;
+              ersteAbleitung = makeFunction(function);
+              zweiteAbleitung = makeFunction(ersteAbleitung);
+              dritteAbleitung = makeFunction(zweiteAbleitung);
+
+              ersteAbleitung = simplifyFunction(ersteAbleitung);
+              zweiteAbleitung = simplifyFunction(zweiteAbleitung);
+              dritteAbleitung = simplifyFunction(dritteAbleitung);
+
+              roots = calculateRoots(function);
+
+              if (!navigateToOptions){
+                navigateToOptions = true;
+                widgetsToAdd = [new DisplayWidget()];
+              }
+              else {
+                navigateToOptions = false;
+                widgetsToAdd = [new InputWidget()];
+              }
+            });
+          },
+        )
     );
   }
 }
@@ -49,104 +86,13 @@ class InputWidget extends StatefulWidget {
   InputWidgetState createState() => new InputWidgetState();
 }
 
+
 class InputWidgetState extends State<InputWidget> {
 
-  InputValue val = new InputValue(text: "");
-  String ersteAbleitung = "";
   String zweiteAbleitung = "";
   String dritteAbleitung = "";
   String roots = "";
   String function = "";
-
-  void _submitted(){
-    setState((){
-      function = val.text;
-      ersteAbleitung = makeFunction(function);
-      zweiteAbleitung = makeFunction(ersteAbleitung);
-      dritteAbleitung = makeFunction(zweiteAbleitung);
-
-      ersteAbleitung = simplifyFunction(ersteAbleitung);
-      zweiteAbleitung = simplifyFunction(zweiteAbleitung);
-      dritteAbleitung = simplifyFunction(dritteAbleitung);
-
-      List<int> calculatedRoots = calculateRoots(function);
-
-      roots = calculatedRoots.toString();
-    });
-  }
-
-  String makeFunction(String function){
-    String newFunction = "";
-    function = function.replaceAll(" ", "");
-    function = function.replaceAll("x^0", "");
-    List<String> elements = isolateSummandsByOperators(function);
-
-    RegExp factorRegex = new RegExp(r"-?[0-9]*x");
-    RegExp exponentRegex = new RegExp(r"\^-?[0-9]*");
-
-    for (int i = 0; i < elements.length; i++){
-      if (xHasExponent(elements[i])){
-        Match factorMatch = factorRegex.firstMatch(elements[i]);
-        int factor = getFactorOfX(elements[i], factorMatch);
-        Match exponentMatch = exponentRegex.firstMatch(elements[i]);
-        int exponent = getExponentOfX(elements[i], exponentMatch);
-
-        newFunction += "${factor*exponent}x^${exponent-1}";
-      }
-      else if (elementContainsX(elements[i])){
-        Match match = factorRegex.firstMatch(elements[i]);
-        newFunction += getFactorOfX(elements[i], match).toString();
-      }
-      else if (elementIsPlusOrMinus(elements[i])){
-        try {
-          if (elementContainsX(elements[i+1])){
-            newFunction += elements[i];
-          }
-        }
-        catch(ex) {}
-      }
-
-    }
-    return newFunction;
-  }
-
-  String simplifyFunction(String function){
-    function = function.replaceAll("x^0", "");
-    function = function.replaceAll("x^1", "x");
-    function = function.replaceAll("+", " + ");
-    function = function.replaceAll("-", " - ");
-    return function;
-  }
-
-  bool xHasExponent(String element){
-    return (element.contains("^")) ? true : false;
-  }
-
-  bool elementIsPlusOrMinus(String element){
-    return (element == "+" || element == "-") ? true : false;
-  }
-
-  bool elementContainsX(String element){
-    return (element.contains("x")) ? true : false;
-  }
-
-  int getFactorOfX(String element, var match){
-    return int.parse(element.substring(match.start, match.end-1));
-  }
-
-  int getExponentOfX(String element, var match){
-    return int.parse(element.substring(match.start+1, match.end));
-  }
-
-  List<String> isolateSummandsByOperators(String function){
-    List<String> splitList = [];
-
-    RegExp exp = new RegExp(r"(?:-?[0-9]*x[\^*/]\s*[\-+]|[^\-+])+|[\-+]");
-    Iterable<Match> matches = exp.allMatches(function);
-    matches.forEach((m)=>splitList.add(function.substring(m.start, m.end)));
-
-    return splitList;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,36 +107,46 @@ class InputWidgetState extends State<InputWidget> {
                 val = newInputValue;
               });
           }),
-          new IconButton(
-            icon: new Icon(Icons.check),
-            onPressed: _submitted,
-          ),
-          new Container(
-            width: 500.0,
-            padding: new EdgeInsets.all(20.0),
-            color: Colors.green,
-            child: new Column(
-              children: [
-                new Text("Ableitungen: "),
-                new Text(ersteAbleitung),
-                new Text(zweiteAbleitung),
-                new Text(dritteAbleitung),
-              ]
-            )
-          ),
-          new Container(
-            width: 500.0,
-            padding: new EdgeInsets.all(20.0),
-            color: Colors.red,
-            child: new Column(
-              children: [
-                new Text("Nullstellen: "),
-                new Text(roots),
-              ]
-            )
-          ),
         ]
-
     );
   }
 }
+
+class DisplayWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Column(
+      children: [
+        new Container(
+          padding: new EdgeInsets.all(20.0),
+          width: 500.0,
+          color: Colors.red,
+          child: new Column(
+            children: [
+              new Text("1. Ableitung: $ersteAbleitung", style: new TextStyle(color: Colors.white)),
+              new Text("2. Ableitung: $zweiteAbleitung", style: new TextStyle(color: Colors.white)),
+              new Text("3. Ableitung: $dritteAbleitung", style: new TextStyle(color: Colors.white)),
+            ]
+          ),
+        ),
+        new Container(
+          padding: new EdgeInsets.all(20.0),
+          width: 500.0,
+          color: Colors.green,
+          child: new Column(
+            children: [
+              new Text("Nullstellen: $roots", style: new TextStyle(color: Colors.white)),
+            ]
+          ),
+        ),
+      ]
+    );
+  }
+}
+
+
+
+/*
+ *
+ ),
+ */
