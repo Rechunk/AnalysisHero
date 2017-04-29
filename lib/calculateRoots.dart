@@ -2,10 +2,9 @@ import 'package:math_expressions/math_expressions.dart';
 
 String addMultiplyOperatorInFrontOfX(String function){
   String newFunction = function;
-  newFunction = function.replaceAllMapped(new RegExp(r'[0-9]*x'), (match) {
+  newFunction = function.replaceAllMapped(new RegExp(r'[0-9]x'), (match) {
     return '${newFunction.substring(match.start, match.end-1)}*x';
   });
-  print(newFunction);
   return newFunction;
 }
 

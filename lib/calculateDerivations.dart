@@ -34,6 +34,10 @@ String makeFunction(String function){
 }
 
 String simplifyFunction(String function){
+  if (function == ""){
+    return " --- ";
+  }
+
   function = function.replaceAll("x^0", "");
   function = function.replaceAll("x^1", "x");
   function = function.replaceAll("+", " + ");
@@ -54,7 +58,11 @@ bool elementContainsX(String element){
 }
 
 int getFactorOfX(String element, var match){
-  return int.parse(element.substring(match.start, match.end-1));
+  try{
+    return int.parse(element.substring(match.start, match.end-1));
+  }
+  // If the user doesn't give a factor (e.g. x^3), then the factor is 1
+  catch(ex){ return 1; }
 }
 
 int getExponentOfX(String element, var match){
