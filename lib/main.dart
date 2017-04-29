@@ -64,13 +64,13 @@ class InputWidgetState extends State<InputWidget> {
 
     return new Column(
         children: [
-          new Input(
-            value: val,
-            labelText: 'Funktion hier eingeben',
+          new Text("Funktion hier eingeben:", style: new TextStyle(fontSize: 20.0, color: Colors.black)),
+          new TextField(
+            style: new TextStyle(fontSize: 20.0, color: Colors.black),
             onChanged: (InputValue newInputValue) {
               setState(() {
                 val = newInputValue;
-              });
+            });
           }),
           new IconButton(
             icon: new Icon(Icons.check),
