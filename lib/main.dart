@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import "calculateDerivations.dart";
 import "calculateRoots.dart";
 
-InputValue val = new InputValue(text: "");
-String ersteAbleitung = "";
-String zweiteAbleitung = "";
-String dritteAbleitung = "";
+InputValue inputValue = new InputValue(text: "");
+List<String> ableitungen = ["", "", ""];
 String roots = "";
 String function = "";
 
@@ -17,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Kurvendiskussion',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -90,6 +88,18 @@ class InputWidget extends StatefulWidget {
   InputWidgetState createState() => new InputWidgetState();
 }
 
+void populateDerivations(){
+  ableitungen[0] = makeFunction(function);
+  ableitungen[1] = makeFunction(ableitungen[0]);
+  ableitungen[2] = makeFunction(ableitungen[1]);
+}
+
+void navigateToResults(BuildContext context){
+  Navigator.push(context, new MyCustomRoute(
+    builder: (_) => new MyCustomView()
+  ));
+}
+
 class InputWidgetState extends State<InputWidget> {
 
   @override
@@ -102,26 +112,20 @@ class InputWidgetState extends State<InputWidget> {
             style: new TextStyle(fontSize: 20.0, color: Colors.black),
             onChanged: (InputValue newInputValue) {
               setState(() {
-                val = newInputValue;
+                inputValue = newInputValue;
             });
           }),
           new IconButton(
-            icon: new Icon(Icons.check),
+            icon: new Icon(Icons.search),
+            iconSize: 40.0,
             onPressed: () {
-              function = val.text;
-              ersteAbleitung = makeFunction(function);
-              zweiteAbleitung = makeFunction(ersteAbleitung);
-              dritteAbleitung = makeFunction(zweiteAbleitung);
+              function = inputValue.text;
 
-              ersteAbleitung = simplifyFunction(ersteAbleitung);
-              zweiteAbleitung = simplifyFunction(zweiteAbleitung);
-              dritteAbleitung = simplifyFunction(dritteAbleitung);
-
+              populateDerivations();
+              ableitungen = simplifyAllFunctions(ableitungen);
               roots = calculateRoots(function).toString();
 
-              Navigator.push(context, new MyCustomRoute(
-                builder: (_) => new MyCustomView()
-              ));
+              navigateToResults(context);
             },
           )
         ]
@@ -148,9 +152,9 @@ class MyCustomView extends StatelessWidget {
                   padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
                   child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
                 ),
-                new Text("1. Ableitung: $ersteAbleitung", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-                new Text("2. Ableitung: $zweiteAbleitung", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-                new Text("3. Ableitung: $dritteAbleitung", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f'(x) = ${ableitungen[0]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f''(x) = ${ableitungen[1]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f'''(x) = ${ableitungen[2]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
               ]
             ),
           ),
@@ -182,7 +186,7 @@ class MyCustomView extends StatelessWidget {
  */
 
 /*
- * function = val.text;
+ * function = inputValue.text;
  ersteAbleitung = makeFunction(function);
  zweiteAbleitung = makeFunction(ersteAbleitung);
  dritteAbleitung = makeFunction(zweiteAbleitung);

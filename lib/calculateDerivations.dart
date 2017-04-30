@@ -33,9 +33,16 @@ String makeFunction(String function){
   return newFunction;
 }
 
+List<String> simplifyAllFunctions(List<String> functions){
+  for(int i = 0; i < functions.length; i++){
+    functions[i] = simplifyFunction(functions[i]);
+  }
+  return functions;
+}
+
 String simplifyFunction(String function){
   if (function == ""){
-    return " --- ";
+    return "0";
   }
 
   function = function.replaceAll("x^0", "");
