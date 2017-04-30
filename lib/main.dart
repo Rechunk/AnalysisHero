@@ -39,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return new Scaffold(
-      appBar: new AppBar(title: new Text(config.title)),
       body: new Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -59,11 +58,11 @@ class MyCustomRoute<T> extends MaterialPageRoute<T> {
   Widget buildTransitions(BuildContext context,
       Animation<double> animation,
       Animation<double> secondaryAnimation,
-      Widget child) {
+      Widget child)
+  {
     if (settings.isInitialRoute)
       return child;
-    // Fades between routes. (If you don't want any animation,
-    // just return child.)
+
     return new SlideTransition(
       position: new FractionalOffsetTween(
         begin: FractionalOffset.topRight,
@@ -77,7 +76,6 @@ class MyCustomRoute<T> extends MaterialPageRoute<T> {
       ),
       child: child,
     );
-    //return new FadeTransition(opacity: animation, child: child);
   }
 
   @override Duration get transitionDuration => const Duration(milliseconds: 400);
@@ -107,9 +105,9 @@ class InputWidgetState extends State<InputWidget> {
 
     return new Column(
         children: [
-          new Text("Funktion hier eingeben:", style: new TextStyle(fontSize: 20.0, color: Colors.black)),
+          new Text("Funktion hier eingeben:", style: new TextStyle(fontSize: 20.0, color: Colors.blue, fontFamily: "Raleway")),
           new TextField(
-            style: new TextStyle(fontSize: 20.0, color: Colors.black),
+            style: new TextStyle(fontSize: 20.0, color: Colors.blue),
             onChanged: (InputValue newInputValue) {
               setState(() {
                 inputValue = newInputValue;
@@ -118,6 +116,7 @@ class InputWidgetState extends State<InputWidget> {
           new IconButton(
             icon: new Icon(Icons.search),
             iconSize: 40.0,
+            color: new Color.fromARGB(255, 88, 88, 88),
             onPressed: () {
               function = inputValue.text;
 
@@ -134,6 +133,8 @@ class InputWidgetState extends State<InputWidget> {
 }
 
 class MyCustomView extends StatelessWidget {
+
+  TextStyle textStyle = new TextStyle(fontSize: 17.5, fontFamily: "Raleway", color: new Color.fromARGB(255, 230, 230, 230));
 
   @override
   Widget build(BuildContext context) {
@@ -152,9 +153,9 @@ class MyCustomView extends StatelessWidget {
                   padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
                   child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
                 ),
-                new Text("f'(x) = ${derivations[0]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-                new Text("f''(x) = ${derivations[1]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-                new Text("f'''(x) = ${derivations[2]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f'(x) = ${derivations[0]}", style: textStyle),
+                new Text("f''(x) = ${derivations[1]}", style: textStyle),
+                new Text("f'''(x) = ${derivations[2]}", style: textStyle),
               ]
             ),
           ),
@@ -168,67 +169,7 @@ class MyCustomView extends StatelessWidget {
                   padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
                   child: new Text("Nullstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
                 ),
-                new Text(roots, style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-              ]
-            ),
-          ),
-          new Container(
-            width: 500.0,
-            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: new Color.fromARGB(255, 53, 126, 92),
-            child: new Column(
-              children: [
-                new Container(
-                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                  child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
-                ),
-                new Text("f'(x) = ${derivations[0]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-                new Text("f''(x) = ${derivations[1]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-                new Text("f'''(x) = ${derivations[2]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-              ]
-            ),
-          ),
-          new Container(
-            width: 500.0,
-            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: new Color.fromARGB(255, 13, 50, 76),
-            child: new Column(
-              children: [
-                new Container(
-                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                  child: new Text("Nullstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
-                ),
-                new Text(roots, style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-              ]
-            ),
-          ),
-          new Container(
-            width: 500.0,
-            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: new Color.fromARGB(255, 53, 126, 92),
-            child: new Column(
-              children: [
-                new Container(
-                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                  child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
-                ),
-                new Text("f'(x) = ${derivations[0]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-                new Text("f''(x) = ${derivations[1]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-                new Text("f'''(x) = ${derivations[2]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-              ]
-            ),
-          ),
-          new Container(
-            width: 500.0,
-            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: new Color.fromARGB(255, 13, 50, 76),
-            child: new Column(
-              children: [
-                new Container(
-                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                  child: new Text("Nullstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
-                ),
-                new Text(roots, style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text(roots, style: textStyle),
               ]
             ),
           ),
