@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import "calculateDerivations.dart";
 import "calculateRoots.dart";
+import "calculateExtremes.dart";
 
-InputValue inputValue = new InputValue(text: "");
 List<String> derivations = ["", "", ""];
 String roots = "";
 String function = "";
+final TextEditingController _controller = new TextEditingController();
 
 void main() {
   runApp(new MyApp());
@@ -107,22 +108,25 @@ class InputWidgetState extends State<InputWidget> {
         children: [
           new Text("Funktion hier eingeben:", style: new TextStyle(fontSize: 20.0, color: Colors.blue, fontFamily: "Raleway")),
           new TextField(
+            controller: _controller,
+            textAlign: TextAlign.center,
             style: new TextStyle(fontSize: 20.0, color: Colors.blue),
-            onChanged: (InputValue newInputValue) {
-              setState(() {
-                inputValue = newInputValue;
-            });
-          }),
+          ),
           new IconButton(
             icon: new Icon(Icons.search),
             iconSize: 40.0,
             color: new Color.fromARGB(255, 88, 88, 88),
             onPressed: () {
-              function = inputValue.text;
+              function = _controller.text;
 
               populateDerivations();
               derivations = simplifyAllFunctions(derivations);
               roots = calculateRoots(function).toString();
+
+              List<double> extremes = calculateExtremes(function, derivations[0]);
+              print(extremes);
+              // TODO: fix bug in extremes calculation
+              // TODO: Move extremes var up the scope and print it on the screen
 
               navigateToResults(context);
             },
@@ -140,9 +144,39 @@ class MyCustomView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Ergebnisse")),
+      appBar: new AppBar(title: new Text("Ergebnisse", style: new TextStyle(fontFamily: "Raleway"))),
       body: new ListView(
         children: [
+          new Container(
+            width: 500.0,
+            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
+            color: new Color.fromARGB(255, 53, 126, 92),
+            child: new Column(
+              children: [
+                new Container(
+                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                  child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                ),
+                new Text("f'(x) = ${derivations[0]}", style: textStyle),
+                new Text("f''(x) = ${derivations[1]}", style: textStyle),
+                new Text("f'''(x) = ${derivations[2]}", style: textStyle),
+              ]
+            ),
+          ),
+          new Container(
+            width: 500.0,
+            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
+            color: new Color.fromARGB(255, 13, 50, 76),
+            child: new Column(
+              children: [
+                new Container(
+                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                  child: new Text("Nullstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                ),
+                new Text(roots, style: textStyle),
+              ]
+            ),
+          ),
           new Container(
             width: 500.0,
             padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
