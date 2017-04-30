@@ -52,6 +52,39 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+class MyCustomRoute<T> extends MaterialPageRoute<T> {
+  MyCustomRoute({
+    WidgetBuilder builder,
+  }): super(builder: builder);
+
+  @override
+  Widget buildTransitions(BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    if (settings.isInitialRoute)
+      return child;
+    // Fades between routes. (If you don't want any animation,
+    // just return child.)
+    return new SlideTransition(
+      position: new FractionalOffsetTween(
+        begin: FractionalOffset.topRight,
+        end: FractionalOffset.topLeft
+      )
+      .animate(
+        new CurvedAnimation(
+          parent: animation,
+          curve: Curves.decelerate,
+        )
+      ),
+      child: child,
+    );
+    //return new FadeTransition(opacity: animation, child: child);
+  }
+
+  @override Duration get transitionDuration => const Duration(milliseconds: 400);
+}
+
 class InputWidget extends StatefulWidget {
   @override
   InputWidgetState createState() => new InputWidgetState();
@@ -86,7 +119,7 @@ class InputWidgetState extends State<InputWidget> {
 
               roots = calculateRoots(function).toString();
 
-              Navigator.push(context, new MaterialPageRoute(
+              Navigator.push(context, new MyCustomRoute(
                 builder: (_) => new MyCustomView()
               ));
             },
