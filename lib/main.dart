@@ -3,7 +3,7 @@ import "calculateDerivations.dart";
 import "calculateRoots.dart";
 
 InputValue inputValue = new InputValue(text: "");
-List<String> ableitungen = ["", "", ""];
+List<String> derivations = ["", "", ""];
 String roots = "";
 String function = "";
 
@@ -72,7 +72,7 @@ class MyCustomRoute<T> extends MaterialPageRoute<T> {
       .animate(
         new CurvedAnimation(
           parent: animation,
-          curve: Curves.decelerate,
+          curve: Curves.ease,
         )
       ),
       child: child,
@@ -89,9 +89,9 @@ class InputWidget extends StatefulWidget {
 }
 
 void populateDerivations(){
-  ableitungen[0] = makeFunction(function);
-  ableitungen[1] = makeFunction(ableitungen[0]);
-  ableitungen[2] = makeFunction(ableitungen[1]);
+  derivations[0] = makeFunction(function);
+  derivations[1] = makeFunction(derivations[0]);
+  derivations[2] = makeFunction(derivations[1]);
 }
 
 void navigateToResults(BuildContext context){
@@ -122,7 +122,7 @@ class InputWidgetState extends State<InputWidget> {
               function = inputValue.text;
 
               populateDerivations();
-              ableitungen = simplifyAllFunctions(ableitungen);
+              derivations = simplifyAllFunctions(derivations);
               roots = calculateRoots(function).toString();
 
               navigateToResults(context);
@@ -152,9 +152,69 @@ class MyCustomView extends StatelessWidget {
                   padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
                   child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
                 ),
-                new Text("f'(x) = ${ableitungen[0]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-                new Text("f''(x) = ${ableitungen[1]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
-                new Text("f'''(x) = ${ableitungen[2]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f'(x) = ${derivations[0]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f''(x) = ${derivations[1]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f'''(x) = ${derivations[2]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+              ]
+            ),
+          ),
+          new Container(
+            width: 500.0,
+            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
+            color: new Color.fromARGB(255, 13, 50, 76),
+            child: new Column(
+              children: [
+                new Container(
+                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                  child: new Text("Nullstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                ),
+                new Text(roots, style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+              ]
+            ),
+          ),
+          new Container(
+            width: 500.0,
+            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
+            color: new Color.fromARGB(255, 53, 126, 92),
+            child: new Column(
+              children: [
+                new Container(
+                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                  child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                ),
+                new Text("f'(x) = ${derivations[0]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f''(x) = ${derivations[1]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f'''(x) = ${derivations[2]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+              ]
+            ),
+          ),
+          new Container(
+            width: 500.0,
+            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
+            color: new Color.fromARGB(255, 13, 50, 76),
+            child: new Column(
+              children: [
+                new Container(
+                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                  child: new Text("Nullstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                ),
+                new Text(roots, style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+              ]
+            ),
+          ),
+          new Container(
+            width: 500.0,
+            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
+            color: new Color.fromARGB(255, 53, 126, 92),
+            child: new Column(
+              children: [
+                new Container(
+                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                  child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                ),
+                new Text("f'(x) = ${derivations[0]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f''(x) = ${derivations[1]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
+                new Text("f'''(x) = ${derivations[2]}", style: new TextStyle(fontSize: 17.5, color: new Color.fromARGB(255, 230, 230, 230))),
               ]
             ),
           ),
