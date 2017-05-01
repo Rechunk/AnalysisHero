@@ -8,28 +8,64 @@ String addMultiplyOperatorInFrontOfX(String function){
   return newFunction;
 }
 
-double calculateResultOf(String function, int variableValue){
+num calculateYOfX(String function, num variableValue){
   Parser parser = new Parser();
   Variable variable = new Variable("x");
   Expression exp = parser.parse(addMultiplyOperatorInFrontOfX(function));
 
   ContextModel model = new ContextModel();
   model.bindVariable(variable, new Number(variableValue));
-  return exp.evaluate(EvaluationType.REAL, model);
+  var result = exp.evaluate(EvaluationType.REAL, model);
+  return result;
 }
 
-
-List<int> calculateRoots(String function){
-
-  double eval = 0.0;
-  List<int> roots = [];
-
-  for (int i = -10; i < 10; i += 1){
-    eval = calculateResultOf(function, i);
-    if (eval == 0.0){
-      roots.add(i);
+List<List<int>> getRootSpans(String function){
+  List<List<int>> rootSpans = [];
+  for (int x = -10; x < 10; x++){
+    try{
+      num current = calculateYOfX(function, x);
+      num next = calculateYOfX(function, x+1);
+      if (current < 0 && next >= 0){
+        rootSpans.add([x, x+1]);
+      }
+      else if (current >= 0 && next < 0){
+        rootSpans.add([x+1, x]);
+      }
     }
+    catch(ex) {print(ex);}
   }
+  return rootSpans;
+}
 
+List<num> calculateRoots(String function){
+
+  List<num> roots = [];
+  List<List<int>> rootSpans = getRootSpans(function);
+  num result;
+  num midValue;
+
+  // TODO: return 0 if function matches pattern of (any number)x^(even number)
+
+  for (int i = 0; i < rootSpans.length; i++){
+    num leftToRoot = rootSpans[i][0];
+    num rightToRoot = rootSpans[i][1];
+    do {
+
+      midValue = (leftToRoot + rightToRoot) / 2;
+      result = calculateYOfX(function, midValue);
+
+      if (result < 0){
+        leftToRoot = midValue;
+      }
+      else {
+        rightToRoot = midValue;
+      }
+
+    }
+    while (leftToRoot.toStringAsFixed(2) != rightToRoot.toStringAsFixed(2));
+
+    // Rounds to 3 digits of precision
+    roots.add(num.parse(midValue.toStringAsFixed(3)));
+  }
   return roots;
 }
