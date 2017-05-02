@@ -32,9 +32,14 @@ List<List<int>> getRootSpans(String function){
         rootSpans.add([x+1, x]);
       }
     }
-    catch(ex) {print(ex);}
+    catch(ex) {}
   }
   return rootSpans;
+}
+
+bool onlyRootIsAtCenter(String function){
+  RegExp exp = new RegExp(r"[0-9]*x\^2$");
+  return (exp.hasMatch(function)) ? true : false;
 }
 
 List<num> calculateRoots(String function){
@@ -44,7 +49,9 @@ List<num> calculateRoots(String function){
   num result;
   num midValue;
 
-  // TODO: return 0 if function matches pattern of (any number)x^(even number)
+  if (onlyRootIsAtCenter(function)){
+    return [0.0];
+  }
 
   for (int i = 0; i < rootSpans.length; i++){
     num leftToRoot = rootSpans[i][0];
