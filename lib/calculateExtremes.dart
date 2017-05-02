@@ -1,5 +1,13 @@
 import "calculateRoots.dart";
 
+bool isMinimum(num pointBefore, num pointAfter){
+  return (pointBefore < 0 && pointAfter > 0) ? true : false;
+}
+
+bool isMaximum(num pointBefore, num pointAfter){
+  return (pointBefore > 0 && pointAfter < 0) ? true : false;
+}
+
 List<List<List<num>>> calculateExtremes(String function, String firstDerivation){
 
   List<List<num>> minimums = [];
@@ -7,16 +15,14 @@ List<List<List<num>>> calculateExtremes(String function, String firstDerivation)
   List<List<num>> turningPoints = [];
   List<num> roots = calculateRoots(firstDerivation);
 
-  print("The roots of the derivation are $roots");
   for (int x = 0; x < roots.length; x++){
-    num yBeforeRoot = calculateYOfX(firstDerivation, x-1);
-    num yAfterRoot = calculateYOfX(firstDerivation, x+1);
+    num pointBefore = calculateYOfX(firstDerivation, x-1);
+    num pointAfter = calculateYOfX(firstDerivation, x+1);
 
-    print("$yBeforeRoot, $yAfterRoot");
-    if (yBeforeRoot < 0 && yAfterRoot > 0){ // minus to plus = minimum
+    if (isMinimum(pointBefore, pointAfter)){
       minimums.add([x, calculateYOfX(function, x.toDouble())]);
     }
-    else if (yBeforeRoot > 0 && yAfterRoot < 0){
+    else if (isMaximum(pointBefore, pointAfter)){
       maximums.add([x, calculateYOfX(function, x.toDouble())]);
     }
     else {
