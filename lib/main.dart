@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import "calculateDerivations.dart";
 import "calculateRoots.dart";
 import "calculateExtremes.dart";
+import "drawGraph.dart";
 
 List<String> derivations = ["", "", ""];
 List<List<List<num>>> extremes = [];
@@ -175,6 +176,23 @@ class MyCustomView extends StatelessWidget {
                 new Text("Maxima: ${extremes[1][0].toString()}" , style: textStyle),
                 new Text("Wendepunkte: ${extremes[2][0].toString()}" , style: textStyle),
               ]
+            ),
+          ),
+          new Container(
+            width: 500.0,
+            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
+            color: new Color.fromARGB(255, 53, 126, 92),
+            child: new Column(
+              children: [
+                new Container(
+                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                  child: new Text("Graph", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                ),
+                new CustomPaint(
+                  size: new Size(200.0, 100.0),
+                  painter: new BarChartPainter(0.0),
+                ),
+              ],
             ),
           ),
         ]
