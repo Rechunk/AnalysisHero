@@ -2,7 +2,7 @@ String makeFunction(String function){
   String newFunction = "";
   function = function.replaceAll(" ", "");
   function = function.replaceAll("x^0", "");
-  List<String> elements = isolateSummandsByOperators(function);
+  List<String> elements = getTokensFromFunction(function);
 
   RegExp factorRegex = new RegExp(r"-?[0-9]*x");
   RegExp exponentRegex = new RegExp(r"\^-?[0-9]*");
@@ -76,12 +76,17 @@ int getExponentOfX(String element, var match){
   return int.parse(element.substring(match.start+1, match.end));
 }
 
-List<String> isolateSummandsByOperators(String function){
+List<String> getTokensFromFunction(String function){
+
   List<String> splitList = [];
+  Iterable<Match> matches = isolateSummandsAndOperators(function);
+  matches.forEach((m)=>splitList.add(function.substring(m.start, m.end)));
+  return splitList;
+}
+
+Iterable<Match> isolateSummandsAndOperators(String function){
 
   RegExp exp = new RegExp(r"(?:-?[0-9]*x[\^*/]\s*[\-+]|[^\-+])+|[\-+]");
   Iterable<Match> matches = exp.allMatches(function);
-  matches.forEach((m)=>splitList.add(function.substring(m.start, m.end)));
-
-  return splitList;
+  return matches;
 }
