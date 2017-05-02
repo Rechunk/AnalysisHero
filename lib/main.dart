@@ -51,8 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class MyCustomRoute<T> extends MaterialPageRoute<T> {
-  MyCustomRoute({
+class ResultsRoute<T> extends MaterialPageRoute<T> {
+  ResultsRoute({
     WidgetBuilder builder,
   }): super(builder: builder);
 
@@ -88,17 +88,7 @@ class InputWidget extends StatefulWidget {
   InputWidgetState createState() => new InputWidgetState();
 }
 
-void populateDerivations(){
-  derivations[0] = makeFunction(function);
-  derivations[1] = makeFunction(derivations[0]);
-  derivations[2] = makeFunction(derivations[1]);
-}
 
-void navigateToResults(BuildContext context){
-  Navigator.push(context, new MyCustomRoute(
-    builder: (_) => new MyCustomView()
-  ));
-}
 
 class InputWidgetState extends State<InputWidget> {
 
@@ -118,19 +108,10 @@ class InputWidgetState extends State<InputWidget> {
             iconSize: 40.0,
             color: new Color.fromARGB(255, 88, 88, 88),
             onPressed: () {
-              function = _controller.text;
-
               populateDerivations();
-              derivations = simplifyAllFunctions(derivations);
-
               roots = calculateRoots(function).toString();
-
-              /* 1. Dimesion: Container
-                 2. Dimension: Minimum , Maximum or Turning Point
-                 3. Dimension: X and Y Coordinates */
               extremes = calculateExtremes(function, derivations[0]);
 
-              print("EXTREMES : $extremes");
               navigateToResults(context);
             },
           )
@@ -183,7 +164,7 @@ class MyCustomView extends StatelessWidget {
           new Container(
             width: 500.0,
             padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: Colors.red,
+            color: new Color.fromARGB(255, 140, 140, 52),
             child: new Column(
               children: [
                 new Container(
@@ -202,24 +183,17 @@ class MyCustomView extends StatelessWidget {
   }
 }
 
+void populateDerivations(){
+  function = _controller.text;
+  derivations[0] = makeFunction(function);
+  derivations[1] = makeFunction(derivations[0]);
+  derivations[2] = makeFunction(derivations[1]);
 
+  derivations = simplifyAllFunctions(derivations);
+}
 
-/*
- *
- ),
- */
-
-/*
- * function = inputValue.text;
- ersteAbleitung = makeFunction(function);
- zweiteAbleitung = makeFunction(ersteAbleitung);
- dritteAbleitung = makeFunction(zweiteAbleitung);
-
- ersteAbleitung = simplifyFunction(ersteAbleitung);
- zweiteAbleitung = simplifyFunction(zweiteAbleitung);
- dritteAbleitung = simplifyFunction(dritteAbleitung);
-
- List<int> calculatedRoots = calculateRoots(function);
-
- roots = calculatedRoots.toString();
- */
+void navigateToResults(BuildContext context){
+  Navigator.push(context, new ResultsRoute(
+    builder: (_) => new MyCustomView()
+  ));
+}
