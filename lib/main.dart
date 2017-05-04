@@ -189,10 +189,10 @@ class MyCustomView extends StatelessWidget {
                   child: new Text("Graph", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
                 ),
                 new CustomPaint(
-                  size: new Size(200.0, 100.0),
+                  size: new Size(100.0, 150.0),
                   painter: new BarChartPainter(0.0),
                 ),
-              ],
+              ]
             ),
           ),
         ]
