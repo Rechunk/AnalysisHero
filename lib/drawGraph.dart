@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import "dart:ui";
 import "calculateRoots.dart";
+import "main.dart";
+
+Canvas myCanvas;
+Paint myPaint;
 
 class BarChartPainter extends CustomPainter {
 
@@ -14,15 +18,15 @@ class BarChartPainter extends CustomPainter {
       ..color = Colors.black
       ..strokeWidth = 2.0
       ..style = PaintingStyle.fill;
-    drawGraph(canvas, paint, "x^2");
+    drawGraph(canvas, paint);
+
   }
 
   @override
   bool shouldRepaint(BarChartPainter old) => barHeight != old.barHeight;
 }
 
-void drawGraph(Canvas canvas, Paint paint, String function){
-
+void drawGraph(Canvas canvas, Paint paint){
   double xJumps = 1.0;
   double nextX, nextY = 0.0;
   double currentX, currentY = 0.0;
@@ -41,5 +45,4 @@ void drawGraph(Canvas canvas, Paint paint, String function){
     print("$currentX, ${currentY+100} to $nextX, ${nextY + 100}");
     canvas.drawLine(new Offset(currentX, currentY+120.0), new Offset(nextX, nextY+120.0), paint);
   }
-
 }
