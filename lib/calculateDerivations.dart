@@ -1,18 +1,21 @@
+import 'package:math_expressions/math_expressions.dart';
+
 String makeFunction(String function){
   String newFunction = "";
   function = function.replaceAll(" ", "");
   function = function.replaceAll("x^0", "");
   List<String> elements = getTokensFromFunction(function);
+  print(elements);
 
-  RegExp factorRegex = new RegExp(r"-?[0-9]*x");
-  RegExp exponentRegex = new RegExp(r"\^-?[0-9]*");
+  RegExp factorRegex = new RegExp(r"-?[0-9\/.]*x");
+  RegExp exponentRegex = new RegExp(r"\^-?[0-9\/.]*");
 
   for (int i = 0; i < elements.length; i++){
     if (xHasExponent(elements[i])){
       Match factorMatch = factorRegex.firstMatch(elements[i]);
-      int factor = getFactorOfX(elements[i], factorMatch);
+      num factor = getFactorOfX(elements[i], factorMatch);
       Match exponentMatch = exponentRegex.firstMatch(elements[i]);
-      int exponent = getExponentOfX(elements[i], exponentMatch);
+      num exponent = getExponentOfX(elements[i], exponentMatch);
 
       newFunction += "${factor*exponent}x^${exponent-1}";
     }
@@ -64,16 +67,33 @@ bool elementContainsX(String element){
   return (element.contains("x")) ? true : false;
 }
 
-int getFactorOfX(String element, var match){
-  try{
-    return int.parse(element.substring(match.start, match.end-1));
-  }
-  // If the user doesn't give a factor (e.g. x^3), then the factor is 1
-  catch(ex){ return 1; }
+bool isFraction(String string){
+  return (string.contains("/")) ? true : false;
 }
 
-int getExponentOfX(String element, var match){
-  return int.parse(element.substring(match.start+1, match.end));
+num getFactorOfX(String element, var match){
+  String factor = element.substring(match.start, match.end-1);
+  if (isFraction(factor)){
+    Parser parser = new Parser();
+    Expression exp = parser.parse(factor);
+    ContextModel model = new ContextModel();
+
+    return (exp.evaluate(EvaluationType.REAL, model));
+  }
+
+  try{
+    return num.parse(factor);
+  }
+  // If the user doesn't give a factor (e.g. x^3), then the factor is 1
+  catch(ex){
+    print(element.substring(match.start, match.end-1));
+    return 1;
+  }
+}
+
+num getExponentOfX(String element, var match){
+
+  return num.parse(element.substring(match.start+1, match.end));
 }
 
 List<String> getTokensFromFunction(String function){
