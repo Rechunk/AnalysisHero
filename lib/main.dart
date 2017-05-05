@@ -181,7 +181,7 @@ class MyCustomView extends StatelessWidget {
           new Container(
             width: 500.0,
             padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: new Color.fromARGB(255, 53, 126, 92),
+            color: new Color.fromARGB(255, 160, 80, 40),
             child: new Column(
               children: [
                 new Container(

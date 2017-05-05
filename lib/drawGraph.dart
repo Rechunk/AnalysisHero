@@ -19,8 +19,8 @@ class BarChartPainter extends CustomPainter {
       ..strokeWidth = 2.0
       ..style = PaintingStyle.fill;
     final coordPaint = new Paint()
-      ..color = new Color.fromARGB(200, 139, 188, 204)
-      ..strokeWidth = 1.0
+      ..color = new Color.fromARGB(200, 0, 163, 255)
+      ..strokeWidth = 2.0
       ..style = PaintingStyle.fill;
     drawGraph(canvas, paint, coordPaint);
 
@@ -42,16 +42,16 @@ void drawGraph(Canvas canvas, Paint paint, Paint coordPaint){
     values.add([x + 10, calculateYOfX(function, x)]);
   }
 
-  canvas.drawLine(new Offset(0.0, 120.0), new Offset(100.0, 120.0), coordPaint);
+  canvas.drawLine(new Offset(0.0, 100.0), new Offset(100.0, 100.0), coordPaint);
   canvas.drawLine(new Offset(50.0, 00.0), new Offset(50.0, 180.0), coordPaint);
 
   for (int i = 0; i < values.length - 1; i++){
-    nextX = values[i+1][0] * stretchFactor;
+    nextX = values[i+1][0] * 5;
     nextY = values[i+1][1] * -1;
-    currentX = values[i][0] * stretchFactor;
+    currentX = values[i][0] * 5;
     currentY = values[i][1] * -1;
     if (nextY.abs() <= maxDrawPoint){
-      canvas.drawLine(new Offset(currentX, currentY+120.0), new Offset(nextX, nextY+120.0), paint);
+      canvas.drawLine(new Offset(currentX, currentY+100.0), new Offset(nextX, nextY+100.0), paint);
     }
   }
 }
