@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import "calculateRoots.dart";
 import "calculateExtremes.dart";
 import "main.dart";
+import "functions.dart";
 
 class InputWidget extends StatefulWidget {
   @override

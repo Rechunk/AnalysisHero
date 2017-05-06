@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "homeManager.dart";
+import "resultsPage.dart";
 
 List<String> derivations = ["", "", ""];
 List<List<List<num>>> extremes = [];
@@ -22,4 +23,10 @@ class MyApp extends StatelessWidget {
       home: new MyHomePage(),
     );
   }
+}
+
+void navigateToResults(BuildContext context){
+  Navigator.push(context, new ResultsRoute(
+    builder: (_) => new DisplayResultsView()
+  ));
 }

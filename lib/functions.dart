@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import "resultsPage.dart";
 import "main.dart";
 import "calculateDerivations.dart";
 
@@ -10,10 +8,4 @@ void populateDerivations(){
   derivations[2] = makeFunction(derivations[1]);
 
   derivations = simplifyAllFunctions(derivations);
-}
-
-void navigateToResults(BuildContext context){
-  Navigator.push(context, new ResultsRoute(
-    builder: (_) => new DisplayResultsView()
-  ));
 }
