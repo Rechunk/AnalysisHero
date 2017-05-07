@@ -29,7 +29,7 @@ class InputWidgetState extends State<InputWidget> {
             onPressed: () {
               populateDerivations();
               roots = calculateRoots(function).toString();
-              extremes = calculateExtremes(function, derivations[0]);
+              //extremes = calculateExtremes(function, derivations[0]);
 
               navigateToResults(context);
             },

@@ -30,3 +30,5 @@ void navigateToResults(BuildContext context){
     builder: (_) => new DisplayResultsView()
   ));
 }
+
+// SOME BUG AT MAKEFUNCTION-FUNCTION

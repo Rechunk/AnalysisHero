@@ -49,7 +49,7 @@ class DisplayResultsView extends StatelessWidget {
             width: 500.0,
             height: 250.0,
             padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: new Color(0xFF5C6BC0),
+            color: new Color(0xFFE8823D),
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -68,12 +68,7 @@ class DisplayResultsView extends StatelessWidget {
             height: 250.0,
             padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
             decoration: new BoxDecoration(
-              color: const Color(0xFF66BB6A),
-              boxShadow: [new BoxShadow(
-                color: Colors.black,
-                blurRadius: 20.0,
-                offset: new Offset(-10.0, 10.0),
-              ),]
+              color: const Color(0xFF343F7F),
             ),
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +85,9 @@ class DisplayResultsView extends StatelessWidget {
             width: 500.0,
             height: 250.0,
             padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: new Color.fromARGB(255, 140, 140, 52),
+            decoration: new BoxDecoration(
+              color: const Color(0xFFB23D14),
+            ),
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -108,7 +105,7 @@ class DisplayResultsView extends StatelessWidget {
             width: 500.0,
             height: 300.0,
             padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: new Color.fromARGB(255, 160, 80, 40),
+            color: const Color(0xFF116C98),
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

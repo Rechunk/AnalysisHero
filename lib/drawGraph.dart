@@ -34,7 +34,6 @@ void drawGraph(Canvas canvas, Paint paint, Paint coordPaint){
   double xJumps = 0.1;
   double nextX, nextY = 0.0;
   double currentX, currentY = 0.0;
-  int stretchFactor = 5;
   int maxDrawPoint = 80;
 
   List<List<double>> values = [];
