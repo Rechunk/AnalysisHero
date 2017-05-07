@@ -45,78 +45,68 @@ class DisplayResultsView extends StatelessWidget {
       appBar: new AppBar(title: new Text("Ergebnisse", style: new TextStyle(fontFamily: "Raleway"))),
       body: new ListView(
         children: [
-          new Container(
-            width: 500.0,
-            height: 250.0,
-            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: new Color(0xFFE8823D),
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                new Container(
-                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                  child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
-                ),
-                new Text("f'(x) = ${derivations[0]}", style: textStyle),
-                new Text("f''(x) = ${derivations[1]}", style: textStyle),
-                new Text("f'''(x) = ${derivations[2]}", style: textStyle),
-              ]
+          new Card(
+            color: new Color(0xFFAB47BC),
+            child: new Container(
+              padding: new EdgeInsets.all(60.0),
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  new Container(
+                    child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                  ),
+                  new Text("f'(x) = ${derivations[0]}", style: textStyle),
+                  new Text("f''(x) = ${derivations[1]}", style: textStyle),
+                  new Text("f'''(x) = ${derivations[2]}", style: textStyle),
+                ]
+              ),
             ),
           ),
-          new Container(
-            width: 500.0,
-            height: 250.0,
-            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            decoration: new BoxDecoration(
-              color: const Color(0xFF343F7F),
-            ),
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                new Container(
-                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                  child: new Text("Nullstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
-                ),
-                new Text(roots, style: textStyle),
-              ]
+          new Card(
+            color: const Color(0xFF3D5AFE),
+            child: new Container(
+              padding: new EdgeInsets.all(60.0),
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  new Container(
+                    child: new Text("Nullstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                  ),
+                  new Text("$roots", style: textStyle),
+                ]
+              ),
             ),
           ),
-          new Container(
-            width: 500.0,
-            height: 250.0,
-            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            decoration: new BoxDecoration(
-              color: const Color(0xFFB23D14),
-            ),
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                new Container(
-                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                  child: new Text("Extremstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
-                ),
-                new Text("Minima: ${extremes[0][0].toString()}" , style: textStyle),
-                new Text("Maxima: ${extremes[1][0].toString()}" , style: textStyle),
-                new Text("Wendepunkte: ${extremes[2][0].toString()}" , style: textStyle),
-              ]
+          new Card(
+            color: const Color(0xFFFF7043),
+            child: new Container(
+              padding: new EdgeInsets.all(60.0),
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  new Container(
+                    child: new Text("Extremstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                  ),
+                  new Text("Minima: ${extremes[0][0].toString()}" , style: textStyle),
+                  new Text("Maxima: ${extremes[1][0].toString()}" , style: textStyle),
+                  new Text("Wendepunkte: ${extremes[2][0].toString()}" , style: textStyle),
+                ]
+              ),
             ),
           ),
-          new Container(
-            width: 500.0,
-            height: 300.0,
-            padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
-            color: const Color(0xFF116C98),
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                new Container(
-                  padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                ),
-                new CustomPaint(
-                  size: new Size(100.0, 180.0),
-                  painter: new BarChartPainter(0.0),
-                ),
-              ]
+          new Card(
+            color: const Color(0xFF29B6F6),
+            child: new Container(
+              padding: new EdgeInsets.all(60.0),
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  new CustomPaint(
+                    size: new Size(100.0, 180.0),
+                    painter: new BarChartPainter(0.0),
+                  ),
+                ]
+              ),
             ),
           ),
         ]
