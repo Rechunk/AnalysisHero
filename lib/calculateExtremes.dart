@@ -13,6 +13,7 @@ List<List<List<num>>> calculateExtremes(String function, String firstDerivation)
   List<List<num>> minimums = [];
   List<List<num>> maximums = [];
   List<List<num>> turningPoints = [];
+  firstDerivation = firstDerivation.replaceAll(" ", "");
   List<num> roots = calculateRoots(firstDerivation);
 
   for (int x = 0; x < roots.length; x++){

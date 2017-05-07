@@ -4,8 +4,8 @@ String makeFunction(String function){
   String newFunction = "";
   function = function.replaceAll(" ", "");
   function = function.replaceAll("x^0", "");
+  // HANDLE x/ here
   List<String> elements = getTokensFromFunction(function);
-  print(elements);
 
   RegExp factorRegex = new RegExp(r"-?[0-9\/.]*x");
   RegExp exponentRegex = new RegExp(r"\^-?[0-9\/.]*");

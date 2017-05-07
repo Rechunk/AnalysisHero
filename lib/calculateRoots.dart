@@ -25,14 +25,16 @@ List<List<int>> getRootSpans(String function){
     try{
       num current = calculateYOfX(function, x);
       num next = calculateYOfX(function, x+1);
-      if (current < 0 && next >= 0){
-        rootSpans.add([x, x+1]);
-      }
-      else if (current >= 0 && next < 0){
-        rootSpans.add([x+1, x]);
+      if (current.isFinite && next.isFinite){
+        if (current < 0 && next >= 0){
+          rootSpans.add([x, x+1]);
+        }
+        else if (current >= 0 && next < 0){
+          rootSpans.add([x+1, x]);
+        }
       }
     }
-    catch(ex) {}
+    catch(ex) { }
   }
   return rootSpans;
 }
@@ -72,7 +74,9 @@ List<num> calculateRoots(String function){
     while (leftToRoot.toStringAsFixed(2) != rightToRoot.toStringAsFixed(2));
 
     // Rounds to 3 digits of precision
+    print("I DID REACH HERE:....");
     roots.add(num.parse(midValue.toStringAsFixed(3)));
   }
+  print("DONE CALCULATING ROOTS...");
   return roots;
 }
