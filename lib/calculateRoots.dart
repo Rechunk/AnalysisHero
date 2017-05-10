@@ -74,9 +74,8 @@ List<num> calculateRoots(String function){
     while (leftToRoot.toStringAsFixed(2) != rightToRoot.toStringAsFixed(2));
 
     // Rounds to 3 digits of precision
-    print("I DID REACH HERE:....");
-    roots.add(num.parse(midValue.toStringAsFixed(3)));
+    num root = num.parse(midValue.toStringAsFixed(3));
+    roots.add((root == -0.0) ? 0 : root);
   }
-  print("DONE CALCULATING ROOTS...");
   return roots;
 }

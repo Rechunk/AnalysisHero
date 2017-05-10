@@ -16,24 +16,38 @@ class InputWidgetState extends State<InputWidget> {
 
     return new Column(
         children: [
-          new Text("Funktion hier eingeben:", style: new TextStyle(fontSize: 20.0, color: Colors.blue, fontFamily: "Raleway")),
+          new Text("Enter function here:", style: new TextStyle(fontSize: 20.0, color: Colors.blue, fontFamily: "Raleway")),
           new TextField(
             controller: controller,
             textAlign: TextAlign.center,
             style: new TextStyle(fontSize: 20.0, color: Colors.blue),
           ),
-          new IconButton(
-            icon: new Icon(Icons.search),
-            iconSize: 40.0,
-            color: new Color.fromARGB(255, 88, 88, 88),
-            onPressed: () {
-              populateDerivations();
-              roots = calculateRoots(function).toString();
-              extremes = calculateExtremes(function, derivations[0]);
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              new IconButton(
+                icon: new Icon(Icons.search),
+                iconSize: 40.0,
+                color: new Color.fromARGB(255, 88, 88, 88),
+                onPressed: () {
+                  populateDerivations();
+                  roots = calculateRoots(function).toString();
+                  extremes = calculateExtremes(function, derivations[0]);
 
-              navigateToResults(context);
-            },
+                  navigateToResults(context);
+                },
+              ),
+              new IconButton(
+                icon: new Icon(Icons.help),
+                iconSize: 40.0,
+                color: new Color.fromARGB(255, 88, 88, 88),
+                onPressed: () {
+                  navigateToHelp(context);
+                },
+              ),
+            ]
           )
+
         ]
     );
   }

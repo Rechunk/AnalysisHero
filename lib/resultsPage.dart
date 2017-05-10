@@ -42,7 +42,7 @@ class DisplayResultsView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Ergebnisse", style: new TextStyle(fontFamily: "Raleway"))),
+      appBar: new AppBar(title: new Text("Results", style: new TextStyle(fontFamily: "Raleway"))),
       body: new ListView(
         children: [
           new Card(
@@ -53,7 +53,8 @@ class DisplayResultsView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   new Container(
-                    child: new Text("Ableitungen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                    padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
+                    child: new Text("Derivations", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
                   ),
                   new Text("f'(x) = ${derivations[0]}", style: textStyle),
                   new Text("f''(x) = ${derivations[1]}", style: textStyle),
@@ -70,7 +71,8 @@ class DisplayResultsView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   new Container(
-                    child: new Text("Nullstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                    padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
+                    child: new Text("Roots", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
                   ),
                   new Text("$roots", style: textStyle),
                 ]
@@ -85,11 +87,12 @@ class DisplayResultsView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   new Container(
-                    child: new Text("Extremstellen", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
+                    padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
+                    child: new Text("Extremes", style: new TextStyle(fontSize: 30.0, fontFamily: "Barrio", color: new Color.fromARGB(255, 230, 230, 230))),
                   ),
-                  new Text("Minima: ${extremes[0][0].toString()}" , style: textStyle),
-                  new Text("Maxima: ${extremes[1][0].toString()}" , style: textStyle),
-                  new Text("Wendepunkte: ${extremes[2][0].toString()}" , style: textStyle),
+                  new Text("Minimums: ${extremes[0][0].toString()}" , style: textStyle),
+                  new Text("Maximums: ${extremes[1][0].toString()}" , style: textStyle),
+                  new Text("Inflection Points: ${extremes[2][0].toString()}" , style: textStyle),
                 ]
               ),
             ),
